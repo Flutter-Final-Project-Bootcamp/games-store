@@ -1,8 +1,8 @@
-const { gameProfile, /*game*/ } = require("../models")
+const { gameProfile, game } = require("../models")
 
 module.exports = class gameProfileController {
     static getGameProfiles(req, res) {
-        gameProfile.findAll({ order: [["id", "asc"]], /*include: [game]*/ })
+        gameProfile.findAll({ order: [["id", "asc"]], include: [game] })
             .then((gameProfiles) => {
                 // res.render('gameProfiles', { gameProfiles })
                 res.json(gameProfiles)
