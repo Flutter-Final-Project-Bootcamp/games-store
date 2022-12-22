@@ -7,4 +7,8 @@ route.get("/", (req, res) => {
   // res.render('index.ejs')
 })
 
+const gameRoutes = require('./game');
+
+route.use('/game', gameRoutes);
+
 module.exports = route
