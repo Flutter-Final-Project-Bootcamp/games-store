@@ -9,4 +9,10 @@ gameRoute.get('/delete/:id', GameController.delete);
 //Game with genres
 gameRoute.get('/:id/genres', GameController.getGameGenres);
 
+//All Game with all details
+gameRoute.get('/details', GameController.getAllGameDetails);
+//A Game with all details
+gameRoute.get('/details/:id', GameController.getGameDetails);
+
+
 module.exports = gameRoute;

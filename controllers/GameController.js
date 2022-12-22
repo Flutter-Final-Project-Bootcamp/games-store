@@ -1,10 +1,10 @@
-const { game, gameGenre, genre } = require('../models')
+const { game, gameGenre, genre, gameProfile } = require('../models')
 
 class GameController {
     static async getAllGames(req, res) {
         try {
             let result = await game.findAll({
-                order:[
+                order: [
                     ['id', 'asc']
                 ]
             });
@@ -17,7 +17,7 @@ class GameController {
     static async add(req, res) {
         try {
             const { name, image, price } = req.body;
-            let result = await game.create({ name, image, price});
+            let result = await game.create({ name, image, price });
             res.json(result);
         } catch (err) {
             res.json(err);
@@ -79,6 +79,24 @@ class GameController {
         }
     }
 
+    static async getAllGameDetails(req, res) {
+        try {
+            const result = await game.findAll({ order: [["id", "asc"]], include: [gameProfile, genre] })
+            res.json(result)
+        } catch (err) {
+            res.json(err);
+        }
+    }
+
+    static async getGameDetails(req, res) {
+        try {
+            const id = +req.params.id
+            const result = await game.findOne({ where: { id }, order: [["id", "asc"]], include: [gameProfile, genre] })
+            res.json(result)
+        } catch (err) {
+            res.json(err);
+        }
+    }
 }
 
 module.exports = GameController;

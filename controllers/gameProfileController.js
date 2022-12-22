@@ -20,7 +20,8 @@ module.exports = class gameProfileController {
         const { release_date, developer, publisher, desc, gameId } = req.body
         gameProfile.create({ release_date, developer, publisher, desc, gameId })
             .then(result => {
-                res.redirect('/game-profiles')
+                //res.redirect('/game-profiles')
+                res.json(result);
             })
             .catch(err => {
                 res.send(err)
@@ -31,7 +32,8 @@ module.exports = class gameProfileController {
         const id = +req.params.id
         gameProfile.destroy({ where: { id } })
             .then(result => {
-                res.redirect('/game-profiles')
+                //res.redirect('/game-profiles')
+                res.json(result);
             })
             .catch(err => {
                 res.send(err)
@@ -56,7 +58,8 @@ module.exports = class gameProfileController {
             where: { id }
         })
             .then(result => {
-                res.redirect('/game-profiles')
+                //res.redirect('/game-profiles')
+                res.json(result);
             })
             .catch(err => {
                 res.send(err)
