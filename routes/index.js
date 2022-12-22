@@ -5,11 +5,11 @@ route.get("/", (req, res) => {
 })
 
 const gameRoutes = require('./game');
+const gameProfileRoute = require("./gameProfile")
+const genreRoutes = require('./genre')
 
 route.use('/game', gameRoutes);
-
-
-const gameProfileRoute = require("./gameProfile")
+route.use('/genre', genreRoutes);
 route.use("/game-profiles", gameProfileRoute)
 
 module.exports = route
