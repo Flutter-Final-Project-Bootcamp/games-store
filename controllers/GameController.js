@@ -16,9 +16,11 @@ class GameController {
 
     static async add(req, res) {
         try {
-            const { name, image, price } = req.body;
-            let result = await game.create({ name, image, price });
-            res.json(result);
+            const { name, image, price, release_date, developer, publisher, desc } = req.body;
+            let addGame = await game.create({ name, image, price });
+            let addGameProfile = await gameProfile.create({ release_date, developer, publisher, desc, gameId: addGame.id })
+
+            res.json(addGameProfile);
         } catch (err) {
             res.json(err);
         }

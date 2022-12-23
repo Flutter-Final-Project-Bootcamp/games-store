@@ -10,7 +10,7 @@ const genreRoutes = require('./genre')
 const gameGenreRoutes = require('./gameGenre')
 
 route.use('/game', gameRoutes);
-route.use("/game-profiles", gameProfileRoute)
+route.use("/game-profile", gameProfileRoute)
 route.use('/genre', genreRoutes);
 route.use('/game-genre', gameGenreRoutes);
 
