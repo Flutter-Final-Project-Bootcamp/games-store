@@ -24,6 +24,10 @@ class GameController {
         }
     }
 
+    static async addPage(req, res) {
+        res.render('addGame.ejs');
+    }
+
     static async delete(req, res) {
         try {
             const id = +req.params.id;
