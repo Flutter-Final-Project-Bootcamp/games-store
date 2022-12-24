@@ -12,6 +12,7 @@ gameRoute.get('/:id/genres', GameController.getGameGenres);
 
 //All Game with all details
 gameRoute.get('/details', GameController.getAllGameDetails);
+
 //A Game with all details
 gameRoute.get('/details/:id', GameController.getGameDetails);
 

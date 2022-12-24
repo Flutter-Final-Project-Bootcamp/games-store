@@ -8,7 +8,8 @@ class GenreController {
                     ['id', 'asc']
                 ]
             });
-            res.json(result);
+            // res.json(result);
+            res.render('genre.ejs', {genres : result});
         } catch (err) {
             res.json(err);
         }
@@ -22,6 +23,10 @@ class GenreController {
         } catch (err) {
             res.json(err);
         }
+    }
+
+    static async addPage(req, res) {
+        res.render('addGenre.ejs');
     }
 
     static async delete(req, res) {

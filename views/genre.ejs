@@ -1,0 +1,31 @@
+<%- include('./partials/head') %> <%- include('./partials/header') %>
+
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>Genre Page</h2>
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis
+            voluptate minima a unde assumenda laboriosam ex labore suscipit
+            nihil. Eos asperiores adipisci officiis, aspernatur error vero saepe
+            temporibus iusto quasi.
+        </p>
+
+        <div class="container text-center">
+            <div class="row row-cols-4">
+            <%  genres.forEach(genre=> { %>
+              <div class="col">
+                <div class="card text-bg-light mb-3 text-center" style="max-width: 18rem; height: 100px;">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=genre.name%></h5>
+                    </div>
+                  </div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+    </div>
+</body>
+
+<%- include('./partials/footer') %>

@@ -68,6 +68,7 @@ class GameController {
                 include: [game, genre]
             });
 
+
             let genres = result.map(el => {
                 return el.genre.dataValues
             });
@@ -80,24 +81,37 @@ class GameController {
             // console.log(resultGameGenres)
 
             res.json(resultGameGenres);
-        } catch {
-
+            // res.json(result);
+        } catch (err) {
+            res.json(err)
         }
     }
 
     static async getAllGameDetails(req, res) {
         try {
-            const result = await game.findAll({ order: [["id", "asc"]], include: [gameProfile, genre] })
-            res.json(result)
+            const result = await game.findAll({ 
+                order: [["id", "asc"]], 
+                include: [gameProfile, genre] 
+            })
+
+            // let resultProfile = await gameProfile.findAll();
+
+            // res.json(result)
+            res.render('games.ejs', {games : result})
         } catch (err) {
             res.json(err);
         }
     }
-
+    
     static async getGameDetails(req, res) {
         try {
             const id = +req.params.id
-            const result = await game.findOne({ where: { id }, order: [["id", "asc"]], include: [gameProfile, genre] })
+
+            const result = await game.findOne({ 
+                where: { id }, 
+                order: [["id", "asc"]], 
+                include: [gameProfile, genre] });
+
             res.json(result)
         } catch (err) {
             res.json(err);
