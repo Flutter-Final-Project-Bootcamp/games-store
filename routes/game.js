@@ -5,6 +5,7 @@ gameRoute.get('/', GameController.getAllGames);
 gameRoute.post('/add', GameController.add);
 gameRoute.get('/add', GameController.addPage);
 gameRoute.post('/update/:id', GameController.update);
+gameRoute.get('/update/:id', GameController.updatePage);
 gameRoute.get('/delete/:id', GameController.delete);
 
 //Game with genres

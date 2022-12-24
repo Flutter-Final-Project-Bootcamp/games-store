@@ -2,45 +2,47 @@
 
 <body>
     <div class="container">
-        <form action="/game/add" method="post">
+        <form action="/game/update/<%= game.id %>" method="post">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" />
+                <input type="text" class="form-control" name="name" value="<%= game.name %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Image</label>
-                <input type="text" class="form-control" name="image" />
+                <input type="text" class="form-control" name="image" value="<%= game.image %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Price</label>
-                <input type="text" class="form-control" name="price" />
+                <input type="text" class="form-control" name="price" value="<%= game.price %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Release Date</label>
-                <input type="date" class="form-control" name="release_date" />
+                <input type="date" class="form-control" name="release_date" value="<%= game.gameProfile.release_date.toISOString().split("T")[0] %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Developer</label>
-                <input type="text" class="form-control" name="developer" />
+                <input type="text" class="form-control" name="developer" value="<%= game.gameProfile.developer %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Publisher</label>
-                <input type="text" class="form-control" name="publisher" />
+                <input type="text" class="form-control" name="publisher" value="<%= game.gameProfile.publisher%>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <textarea class="form-control" name="desc" rows="3"></textarea>
+                <textarea class="form-control" name="desc" rows="3"><%= game.gameProfile.desc %></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">Genre</label>
                 <select class="form-select select2-multiple" name="genres" multiple>
                     <% genres.forEach(genre => { %>
-                        <option value="<%= genre.id %>"><%= genre.name %></option>
+                        <option value="<%= genre.id %>" <%= game.genres.some(e => e.id === genre.id) ? 'selected' : '' %> >
+                            <%= genre.name %>
+                        </option>
                     <% }); %>
                 </select>
             </div>
             <a href="/game/details" class="btn btn-primary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Add Game</button>
+            <button type="submit" class="btn btn-primary">Update Game</button>
         </form>
     </div>
 </body>
