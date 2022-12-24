@@ -12,6 +12,11 @@
                     nihil. Eos asperiores adipisci officiis, aspernatur error vero saepe
                     temporibus iusto quasi.
                 </p>
+                <div class="row" style="margin-bottom: 20px; margin-right: 0px;">
+                    <div class="d-flex justify-content-end">
+                        <a href="/game/add/"><button type="button" class="btn btn-primary">Add Game</button></a>
+                    </div>
+                </div>
                 <div class="container-md">
                     <% games.forEach(game=> { %>
                         <a href="/game/details/<%=game.id%>">
@@ -31,15 +36,17 @@
                                                 let genres
                                                 genres = game.genres %>
                                                 <% genres.forEach(genre=> { %>
+                                                <% if(genre.name !== null) { %>
                                                 <p class="card-text col"><span class="badge bg-primary"><%=genre.name%></span></p>
+                                                <% } else { %>
+                                                    <p class="card-text col"><span class="badge bg-primary">unidentified</span></p>  
+                                                <% } %>
                                                 <!-- <span class="card-text badge bg-primary col"><%=genre.name %></span> -->
                                                 <!-- <span class="badge badge-primary"><%=genre.name %></span> -->
                                                 <% }) %>
                                             </div>
-                                            
                                             <p class="card-text"><%=game.gameProfile.desc %></p>
-                                            
-                                            <p class="card-text"><small class="text-muted">Rp. <%=game.price %></small></p>
+                                            <h4 class="card-text" style="margin-top: 0px; margin-bottom: 0px"><small class="text-success">Rp. <%=game.price %></small></h4>
                                         </div>
                                     </div>
                                 </div>

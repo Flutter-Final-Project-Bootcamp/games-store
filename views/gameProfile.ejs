@@ -1,0 +1,17 @@
+<%- include('./partials/head') %>
+    <%- include('./partials/header') %>
+
+        <body>
+            <div class="container">
+                
+                <div class="title">
+                    <h2><%=games.name%></h2>
+                </div>
+                <img src="<%=games.image%>" class="img-fluid" style="width: 100%;" alt="<%=games.name%>">
+                <p>
+                    <%=games.gameProfile.desc%>
+                </p>  
+            </div>
+        </body>
+
+<%- include('./partials/footer') %>

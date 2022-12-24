@@ -112,7 +112,8 @@ class GameController {
                 order: [["id", "asc"]], 
                 include: [gameProfile, genre] });
 
-            res.json(result)
+            // res.json(result)
+            res.render('gameProfile.ejs', { games: result })
         } catch (err) {
             res.json(err);
         }
