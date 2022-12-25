@@ -35,15 +35,15 @@
                                                     </h5>
                                                 </div>
                                             </div>
-                                            <div class="row row-cols-auto">
+                                            <div>
                                                 <% 
                                                 let genres
                                                 genres = game.genres %>
                                                 <% genres.forEach(genre=> { %>
                                                 <% if(genre.name !== null) { %>
-                                                    <small class="card-text col"><span class="badge bg-primary"><%=genre.name%></span></small>
+                                                    <small class="card-text"><span class="badge bg-primary"><%=genre.name%></span></small>
                                                 <% } else { %>
-                                                    <small class="card-text col"><span class="badge bg-primary">unidentified</span></small>  
+                                                    <small class="card-text"><span class="badge bg-primary">unidentified</span></small>  
                                                 <% } %>
                                                 <!-- <span class="card-text badge bg-primary col"><%=genre.name %></span> -->
                                                 <!-- <span class="badge badge-primary"><%=genre.name %></span> -->

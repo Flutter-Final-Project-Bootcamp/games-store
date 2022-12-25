@@ -41,11 +41,15 @@ class GameController {
     static async delete(req, res) {
         try {
             const id = +req.params.id;
+            let oldImage = await game.findOne({ where: { id } })
             let result = await game.destroy({
                 where: { id }
             });
             await gameGenre.destroy({ where: { gameId: id } })
             await gameProfile.destroy({ where: { gameId: id } })
+            fs.unlink('./public/uploads/' + oldImage.image, (err) => {
+                if (err) throw err;
+            })
             // res.json(result);
             res.redirect('/game/details/');
         } catch (err) {
@@ -58,10 +62,12 @@ class GameController {
             const id = Number(req.params.id);
             const { name, price, release_date, developer, publisher, desc, genres } = req.body;
             if (req.file) {
-                // let oldImage = await game.findOne({ where: { id } }).image
-                // fs.unlink('/uploads/', oldImage)
+                let oldImage = await game.findOne({ where: { id } })
                 await game.update({ name, image: req.file.filename, price },
                     { where: { id } });
+                fs.unlink('./public/uploads/' + oldImage.image, (err) => {
+                    if (err) throw err;
+                })
             } else {
                 await game.update({ name, price },
                     { where: { id } });
