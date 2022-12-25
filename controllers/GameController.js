@@ -1,5 +1,5 @@
 const { game, gameGenre, genre, gameProfile } = require('../models')
-
+const fs = require('fs')
 class GameController {
     static async getAllGames(req, res) {
         try {
@@ -16,8 +16,8 @@ class GameController {
 
     static async add(req, res) {
         try {
-            const { name, image, price, release_date, developer, publisher, desc, genres } = req.body;
-            const addGame = await game.create({ name, image, price });
+            const { name, price, release_date, developer, publisher, desc, genres } = req.body;
+            const addGame = await game.create({ name, image: req.file.filename, price });
             await gameProfile.create({ release_date, developer, publisher, desc, gameId: addGame.id });
             for (const genre of genres) {
                 await gameGenre.create({ gameId: addGame.id, genreId: genre })
@@ -56,9 +56,16 @@ class GameController {
     static async update(req, res) {
         try {
             const id = Number(req.params.id);
-            const { name, image, price, release_date, developer, publisher, desc, genres } = req.body;
-            await game.update({ name, image, price },
-                { where: { id } });
+            const { name, price, release_date, developer, publisher, desc, genres } = req.body;
+            if (req.file) {
+                // let oldImage = await game.findOne({ where: { id } }).image
+                // fs.unlink('/uploads/', oldImage)
+                await game.update({ name, image: req.file.filename, price },
+                    { where: { id } });
+            } else {
+                await game.update({ name, price },
+                    { where: { id } });
+            }
             await gameProfile.update({ release_date, developer, publisher, desc },
                 { where: { gameId: id } });
             await gameGenre.destroy({ where: { gameId: id } });
@@ -70,7 +77,7 @@ class GameController {
                 include: [gameProfile, genre]
             });
             // res.json(result);
-            res.redirect('/game/details/'+id);
+            res.redirect('/game/details/' + id);
 
         } catch (err) {
             res.json(err);
@@ -147,7 +154,7 @@ class GameController {
             });
 
             // res.json(result)
-            res.render('gameProfile.ejs', { games: result })
+            res.render('gameProfile.ejs', { game: result })
         } catch (err) {
             res.json(err);
         }

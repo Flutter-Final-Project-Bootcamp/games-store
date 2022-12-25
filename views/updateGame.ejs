@@ -11,14 +11,14 @@
             nihil. Eos asperiores adipisci officiis, aspernatur error vero saepe
             temporibus iusto quasi.
         </p>
-        <form action="/game/update/<%= game.id %>" method="post">
+        <form action="/game/update/<%= game.id %>" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" value="<%= game.name %>" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Image</label>
-                <input type="text" class="form-control" name="image" value="<%= game.image %>" />
+                <input type="file" class="form-control" name="image" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Price</label>

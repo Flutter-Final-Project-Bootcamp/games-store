@@ -6,6 +6,7 @@ const port = 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static(__dirname + '/public'));
 
 const routes = require("./routes")
 app.use(routes)
@@ -22,6 +23,6 @@ app.locals.rupiah = (number) => {
 }
 
 app.locals.date = (date) => {
-    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     return `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()}`
 }
