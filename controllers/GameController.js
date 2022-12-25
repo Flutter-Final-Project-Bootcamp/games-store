@@ -45,6 +45,7 @@ class GameController {
                 where: { id }
             });
             await gameGenre.destroy({ where: { gameId: id } })
+            await gameProfile.destroy({ where: { gameId: id } })
             // res.json(result);
             res.redirect('/game/details/');
         } catch (err) {

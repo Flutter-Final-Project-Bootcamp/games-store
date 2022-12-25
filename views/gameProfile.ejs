@@ -12,11 +12,11 @@
                         <tbody>
                           <tr>
                             <td>Release Date</td>
-                            <td><%=games.gameProfile.release_date%></td>
+                            <td><%=date(games.gameProfile.release_date)%></td>
                           </tr>
                           <tr>
                             <td>Price</td>
-                            <td><%=games.price%></td>
+                            <td><%= rupiah(games.price)%></td>
                           </tr>
                           <tr>
                             <td>Developer</td>
