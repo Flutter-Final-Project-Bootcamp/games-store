@@ -3,7 +3,7 @@
 <body>
     <div class="container">
         <div class="title">
-            <h2>Add a Genre</h2>
+            <h2>Update Genre</h2>
         </div>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis
@@ -11,12 +11,12 @@
             nihil. Eos asperiores adipisci officiis, aspernatur error vero saepe
             temporibus iusto quasi.
         </p>
-        <form action="/genre/add" method="post">
+        <form action="/genre/update/<%=genre.id%>" method="post">
             <div class="mb-3">
                 <label class="form-label">Genre</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" value="<%= genre.name %>">
             </div>
-            <button type="submit" class="btn btn-primary">Add Genre</button>
+            <button type="submit" class="btn btn-primary">Update Genre</button>
         </form>
     </div>
 </body>

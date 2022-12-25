@@ -21,29 +21,25 @@
                     <% games.forEach(game=> { %>
                         <a href="/game/details/<%=game.id%>">
                             <div class="card mb-3 card-game" style="max-width: 100%;">
-                                <div class="row g-0" style="padding-right: 0px;">
+                                <div class="row g-0">
                                     <div class="col-md-3">
                                         <img src="<%=game.image%>" class="img-fluid h-100 rounded-start"
                                             alt="<%=game.name %>">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <div class="row border-bottom">
-                                                <div class="col-md-8">
-                                                    <h5 class="card-title ">
-                                                    <%=game.name %>
-                                                    </h5>
-                                                </div>
-                                            </div>
+                                            <h5 class="card-title border-bottom">
+                                                <%=game.name %>
+                                            </h5>
                                             <div class="row row-cols-auto">
                                                 <% 
                                                 let genres
                                                 genres = game.genres %>
                                                 <% genres.forEach(genre=> { %>
                                                 <% if(genre.name !== null) { %>
-                                                    <small class="card-text col"><span class="badge bg-primary"><%=genre.name%></span></small>
+                                                <p class="card-text col"><span class="badge bg-primary"><%=genre.name%></span></p>
                                                 <% } else { %>
-                                                    <small class="card-text col"><span class="badge bg-primary">unidentified</span></small>  
+                                                    <p class="card-text col"><span class="badge bg-primary">unidentified</span></p>  
                                                 <% } %>
                                                 <!-- <span class="card-text badge bg-primary col"><%=genre.name %></span> -->
                                                 <!-- <span class="badge badge-primary"><%=genre.name %></span> -->
@@ -51,11 +47,9 @@
                                             </div>
                                             <p class="card-text"><%=game.gameProfile.desc %></p>
                                             <h4 class="card-text" style="margin-top: 0px; margin-bottom: 0px"><small class="text-success">Rp. <%=game.price %></small></h4>
+                                            <div>resident</div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-1">
-                                        <small><a href="/game/update/<%=game.id%>">Update</a></small>
-                                    </div> -->
                                 </div>
                             </div>
                         </a>

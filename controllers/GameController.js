@@ -26,7 +26,8 @@ class GameController {
                 where: { id: addGame.id },
                 include: [gameProfile, genre]
             });
-            res.json(result);
+            // res.json(result);
+            res.redirect('/game/details');
         } catch (err) {
             res.json(err);
         }
@@ -44,7 +45,8 @@ class GameController {
                 where: { id }
             });
             await gameGenre.destroy({ where: { gameId: id } })
-            res.json(result);
+            // res.json(result);
+            res.redirect('/game/details/');
         } catch (err) {
             res.json(err)
         }
@@ -66,7 +68,8 @@ class GameController {
                 where: { id },
                 include: [gameProfile, genre]
             });
-            res.json(result);
+            // res.json(result);
+            res.redirect('/game/details/'+id);
 
         } catch (err) {
             res.json(err);

@@ -3,14 +3,51 @@
 
         <body>
             <div class="container">
-                
-                <div class="title">
-                    <h2><%=games.name%></h2>
+                <div class="card mb-3">
+                    <img src="<%=games.image%>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=games.name%></h5>
+                      <p class="card-text"><%=games.gameProfile.desc%></p>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Release Date</td>
+                            <td><%=games.gameProfile.release_date%></td>
+                          </tr>
+                          <tr>
+                            <td>Price</td>
+                            <td><%=games.price%></td>
+                          </tr>
+                          <tr>
+                            <td>Developer</td>
+                            <td><%=games.gameProfile.developer%></td>
+                          </tr>
+                          <tr>
+                            <td>Publisher</td>
+                            <td><%=games.gameProfile.publisher%></td>
+                          </tr>
+                          <tr>
+                            <td>Genre</td>
+                            <td>
+                                <% 
+                                let genres
+                                genres = games.genres %>
+                                <% genres.forEach(genre=> { %>
+                                <% if(genre.name !== null) { %>
+                                    <small class="card-text col"><span class="badge bg-primary"><%=genre.name%></span></small>
+                                <% } else { %>
+                                    <small class="card-text col"><span class="badge bg-primary">unidentified</span></small>  
+                                <% } %>
+                                <% }) %>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div>
+                        <a href="/game/update/<%=games.id%>"><button type="button" class="btn btn-primary">Update</button></a>
+                        <a href="/game/delete/<%=games.id%>"><button type="button" class="btn btn-primary">Delete</button></a></div>
+                      </div>
                 </div>
-                <img src="<%=games.image%>" class="img-fluid" style="width: 100%;" alt="<%=games.name%>">
-                <p>
-                    <%=games.gameProfile.desc%>
-                </p>  
             </div>
         </body>
 
