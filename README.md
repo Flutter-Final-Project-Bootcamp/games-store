@@ -1,6 +1,6 @@
 # games-store
 
-# Api Documentation
+## Api Documentation
 
-```GET``` ```localhost:3000/``` index.
+```GET``` ```localhost:3000/``` index. <br>
 ```GET``` ```localhost:3000/game``` get all games without details.
