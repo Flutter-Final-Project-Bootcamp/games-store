@@ -42,13 +42,19 @@ class GameController {
         try {
             const id = +req.params.id;
             let oldImage = await game.findOne({ where: { id } })
+            let file = './public/uploads/' + oldImage.image
             let result = await game.destroy({
                 where: { id }
             });
             await gameGenre.destroy({ where: { gameId: id } })
             await gameProfile.destroy({ where: { gameId: id } })
-            fs.unlink('./public/uploads/' + oldImage.image, (err) => {
-                if (err) throw err;
+            fs.unlink(file, (err) => {
+                if (err) {
+                    if (err.code === 'ENOENT') {
+                        return;
+                    }
+                    throw err;
+                }
             })
             // res.json(result);
             res.redirect('/game/details/');
@@ -63,10 +69,16 @@ class GameController {
             const { name, price, release_date, developer, publisher, desc, genres } = req.body;
             if (req.file) {
                 let oldImage = await game.findOne({ where: { id } })
+                let file = './public/uploads/' + oldImage.image
                 await game.update({ name, image: req.file.filename, price },
                     { where: { id } });
-                fs.unlink('./public/uploads/' + oldImage.image, (err) => {
-                    if (err) throw err;
+                fs.unlink(file, (err) => {
+                    if (err) {
+                        if (err.code === 'ENOENT') {
+                            return;
+                        }
+                        throw err;
+                    }
                 })
             } else {
                 await game.update({ name, price },

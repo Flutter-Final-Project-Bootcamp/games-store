@@ -14,17 +14,17 @@
         <form action="/game/add" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" required/>
+                <input type="text" class="form-control" name="name" required />
             </div>
             <div class="mb-3">
                 <label class="form-label">Image</label>
-                <input type="file" class="form-control" name="image" />
+                <input type="file" class="form-control" name="image" required />
             </div>
             <div class="mb-3">
                 <label class="form-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">Rp</span>
-                    <input type="number" class="form-control" min="0" name="price" />
+                    <input type="number" class="form-control" min="0" name="price" required />
                     <span class="input-group-text">.00</span>
                 </div>
             </div>
