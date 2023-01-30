@@ -8,8 +8,7 @@ class GenreController {
                     ['id', 'asc']
                 ]
             });
-            // res.json(result);
-            res.render('genre.ejs', {genres : result});
+            res.json(result);
         } catch (err) {
             res.json(err);
         }
@@ -19,15 +18,10 @@ class GenreController {
         try {
             const { name } = req.body;
             let result = await genre.create({ name });
-            res.redirect('/genre');
-            // res.json(result);
+            res.json(result);
         } catch (err) {
             res.json(err);
         }
-    }
-
-    static async addPage(req, res) {
-        res.render('addGenre.ejs');
     }
 
     static async delete(req, res) {
@@ -36,8 +30,7 @@ class GenreController {
             let result = await genre.destroy({
                 where: { id }
             });
-            // res.json(result);
-            res.redirect('/genre');
+            res.json(result);
         } catch (err) {
             res.json(err)
         }
@@ -51,22 +44,7 @@ class GenreController {
             let result = await genre.update({ name },
                 { where: { id } });
 
-            // res.json(result);
-            // res.json('genre.ejs', { genres : result });
-            res.redirect('/genre')
-
-        } catch (err) {
-            res.json(err);
-        }
-    }
-
-    static async updatePage(req, res) {
-        try {
-            const id = +req.params.id;
-
-            let result = await genre.findByPk(id);
-
-            res.render('updateGenre.ejs', { genre : result });
+            res.json(result);
 
         } catch (err) {
             res.json(err);

@@ -1,68 +1,53 @@
 const { gameProfile, game } = require("../models")
 
 module.exports = class gameProfileController {
-    static getGameProfiles(req, res) {
-        gameProfile.findAll({ order: [["id", "asc"]], include: [game] })
-            .then((gameProfiles) => {
-                // res.render('gameProfiles', { gameProfiles })
-                res.json(gameProfiles)
-            })
-            .catch((err) => {
-                res.json(err)
-            })
+    static async getGameProfiles(req, res) {
+        try {
+            let result = await gameProfile.findAll({ order: [["id", "asc"]], include: [game] })
+
+            res.json(result)
+        } catch (err) {
+            res.json(err)
+        }
     }
 
-    static createPage(req, res) {
-        //res.render('gameProfiles/add.ejs')
+    static async create(req, res) {
+        try {
+            const { release_date, developer, publisher, desc, gameId } = req.body
+
+            let result = await gameProfile.create({ release_date, developer, publisher, desc, gameId })
+
+            res.json(result)
+        } catch (err) {
+            res.json(err)
+
+        }
     }
 
-    static create(req, res) {
-        const { release_date, developer, publisher, desc, gameId } = req.body
-        gameProfile.create({ release_date, developer, publisher, desc, gameId })
-            .then(result => {
-                //res.redirect('/game-profiles')
-                res.json(result);
-            })
-            .catch(err => {
-                res.send(err)
-            })
+    static async delete(req, res) {
+        try {
+            const id = +req.params.id
+
+            let result = await gameProfile.destroy({ where: { id } })
+
+            res.json(result)
+        } catch (err) {
+            res.json(err)
+        }
     }
 
-    static delete(req, res) {
-        const id = +req.params.id
-        gameProfile.destroy({ where: { id } })
-            .then(result => {
-                //res.redirect('/game-profiles')
-                res.json(result);
-            })
-            .catch(err => {
-                res.send(err)
-            })
-    }
+    static async update(req, res) {
+        try {
+            const id = +req.params.id
+            const { release_date, developer, publisher, desc, gameId } = req.body
 
-    static updatePage(req, res) {
-        const id = +req.params.id
-        gameProfile.findByPk(id)
-            .then((gameProfile) => {
-                //res.render('gameProfiles/update.ejs', { gameProfile })
+            let result = await gameProfile.update({ release_date, developer, publisher, desc, gameId }, {
+                where: { id }
             })
-            .catch((err) => {
-                res.json(err)
-            })
-    }
 
-    static update(req, res) {
-        const id = +req.params.id
-        const { release_date, developer, publisher, desc, gameId } = req.body
-        gameProfile.update({ release_date, developer, publisher, desc, gameId }, {
-            where: { id }
-        })
-            .then(result => {
-                //res.redirect('/game-profiles')
-                res.json(result);
-            })
-            .catch(err => {
-                res.send(err)
-            })
+            res.json(result)
+        } catch (err) {
+            res.json(err)
+        }
     }
 }

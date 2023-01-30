@@ -26,16 +26,10 @@ class GameController {
                 where: { id: addGame.id },
                 include: [gameProfile, genre]
             });
-            // res.json(result);
-            res.redirect('/game/details');
+            res.json(result);
         } catch (err) {
             res.json(err);
         }
-    }
-
-    static async addPage(req, res) {
-        const genres = await genre.findAll({ order: [['id', 'asc']] })
-        res.render('addGame.ejs', { genres })
     }
 
     static async delete(req, res) {
@@ -56,8 +50,7 @@ class GameController {
                     throw err;
                 }
             })
-            // res.json(result);
-            res.redirect('/game/details/');
+            res.json(result);
         } catch (err) {
             res.json(err)
         }
@@ -94,25 +87,10 @@ class GameController {
                 where: { id },
                 include: [gameProfile, genre]
             });
-            // res.json(result);
-            res.redirect('/game/details/' + id);
+            res.json(result);
 
         } catch (err) {
             res.json(err);
-        }
-    }
-
-    static async updatePage(req, res) {
-        try {
-            const id = +req.params.id
-            const genres = await genre.findAll({ order: [['id', 'asc']] })
-            let upGame = await game.findOne({
-                where: { id },
-                include: [gameProfile, genre]
-            })
-            res.render('updateGame.ejs', { game: upGame, genres })
-        } catch (err) {
-            res.json(err)
         }
     }
 
@@ -137,10 +115,7 @@ class GameController {
                 genres
             }
 
-            // console.log(resultGameGenres)
-
             res.json(resultGameGenres);
-            // res.json(result);
         } catch (err) {
             res.json(err)
         }
@@ -153,10 +128,7 @@ class GameController {
                 include: [gameProfile, genre]
             })
 
-            // let resultProfile = await gameProfile.findAll();
-
-            // res.json(result)
-            res.render('games.ejs', { games: result })
+            res.json(result)
         } catch (err) {
             res.json(err);
         }
@@ -171,8 +143,7 @@ class GameController {
                 include: [gameProfile, genre]
             });
 
-            // res.json(result)
-            res.render('gameProfile.ejs', { game: result })
+            res.json(result)
         } catch (err) {
             res.json(err);
         }

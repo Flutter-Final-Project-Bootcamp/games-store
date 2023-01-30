@@ -1,11 +1,9 @@
 const gameProfileRoute = require('express').Router()
-const Controller = require('../controllers/gameProfileController')
+const { GameProfileController } = require('../controllers/');
 
-gameProfileRoute.get('/', Controller.getGameProfiles)
-gameProfileRoute.get('/add', Controller.createPage)
-gameProfileRoute.post('/add', Controller.create)
-gameProfileRoute.get('/update/:id', Controller.updatePage)
-gameProfileRoute.post('/update/:id', Controller.update)
-gameProfileRoute.get('/delete/:id', Controller.delete)
+gameProfileRoute.get('/', GameProfileController.getGameProfiles)
+gameProfileRoute.post('/', GameProfileController.create)
+gameProfileRoute.put('/:id', GameProfileController.update)
+gameProfileRoute.delete('/:id', GameProfileController.delete)
 
 module.exports = gameProfileRoute
