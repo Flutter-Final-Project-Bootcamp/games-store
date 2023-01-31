@@ -1,9 +1,10 @@
 const genreRoute = require('express').Router();
 const { GenreController } = require('../controllers/');
+const { auth } = require('../middlewares/auth')
 
 genreRoute.get('/', GenreController.getAllGenres);
-genreRoute.post('/', GenreController.add);
-genreRoute.put('/:id', GenreController.update);
-genreRoute.delete('/:id', GenreController.delete);
+genreRoute.post('/', auth, GenreController.add);
+genreRoute.put('/:id', auth, GenreController.update);
+genreRoute.delete('/:id', auth, GenreController.delete);
 
 module.exports = genreRoute;

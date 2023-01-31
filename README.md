@@ -2,17 +2,16 @@
 
 ## Api Documentation
 
-```GET``` ```https://games-store-f2rb.onrender.com/``` index. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/game``` get all games without details. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/genre``` get all genres. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/game-genre``` get all game with genres. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/game/details/:id``` get specific game with details. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/game/details``` get all games with details. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/game/delete/:id``` delete specific game by id. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/game-genre/delete/:id``` delete specific relation between a game and a genre by id. <br>
-```GET``` ```https://games-store-f2rb.onrender.com/genre/delete/:id``` delete specific genre by id. <br><br>
-```POST``` ```https://games-store-f2rb.onrender.com/game/add``` add a game with details. <br>
-```POST``` ```https://games-store-f2rb.onrender.com/genre/add``` add a genre. <br>
-```POST``` ```https://games-store-f2rb.onrender.com/game-genre/add``` add a relation between a game and a genre. <br>
-```POST``` ```https://games-store-f2rb.onrender.com/game/update/:id``` update specific game (include details) by id. <br>
-```POST``` ```https://games-store-f2rb.onrender.com/genre/update/:id``` update specific genre only by id. <br>
+```GET``` ```/api``` index. <br>
+```GET``` ```/api/games``` get all games with details. <br>
+```GET``` ```/api/genres``` get all genres. <br>
+```GET``` ```/api/games/game/:id``` get specific game with details. <br><br>
+
+```POST``` ```/api/games``` add a game with details. <br>
+```POST``` ```/api/genres``` add a genre. <br><br>
+
+```PUT``` ```/api/games/:id``` update specific game (include details) by id. <br>
+```PUT``` ```/api/genres/:id``` update specific genre only by id. <br><br>
+
+```DELETE``` ```/api/games/:id``` delete specific game by id. <br>
+```DELETE``` ```/api/genres/:id``` delete specific genre by id. <br>

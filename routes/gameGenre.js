@@ -1,9 +1,10 @@
 const gameGenreRoute = require('express').Router();
 const { GameGenreController } = require('../controllers/');
+const { auth } = require('../middlewares/auth')
 
 gameGenreRoute.get('/', GameGenreController.getAll);
-gameGenreRoute.post('/', GameGenreController.add);
-gameGenreRoute.put('/:id', GameGenreController.update);
-gameGenreRoute.delete('/:id', GameGenreController.delete);
+gameGenreRoute.post('/', auth, GameGenreController.add);
+gameGenreRoute.put('/:id', auth, GameGenreController.update);
+gameGenreRoute.delete('/:id', auth, GameGenreController.delete);
 
 module.exports = gameGenreRoute;

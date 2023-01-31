@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+require("dotenv").config()
 const saltRound = +process.env.SALT_ROUND || 5
 
 

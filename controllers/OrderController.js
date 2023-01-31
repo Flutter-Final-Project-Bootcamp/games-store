@@ -1,10 +1,10 @@
-const { genre } = require('../models')
+const { order } = require('../models')
 
-class GenreController {
-    static async getAllGenres(req, res) {
+class OrderController {
+    static async getAll(req, res) {
         try {
-            let result = await genre.findAll({
-                order:[
+            let result = await order.findAll({
+                order: [
                     ['id', 'asc']
                 ]
             });
@@ -17,9 +17,9 @@ class GenreController {
 
     static async add(req, res) {
         try {
-            const { name } = req.body;
+            const { price, transactionId, gameId } = req.body;
 
-            let result = await genre.create({ name });
+            let result = await order.create({ price, transactionId, gameId });
 
             res.status(201).json(result);
         } catch (err) {
@@ -30,17 +30,17 @@ class GenreController {
     static async update(req, res) {
         try {
             const id = Number(req.params.id);
-            const { name } = req.body;
+            const { price, transactionId, gameId } = req.body;
 
-            let result = await genre.update({ name },
+            let result = await order.update({ price, transactionId, gameId },
                 { where: { id } });
 
             result[0] === 1 ?
                 res.status(200).json({
-                    message: `Genre id ${id} updated successfully!`
+                    message: `Order id ${id} updated successfully!`
                 }) :
                 res.status(404).json({
-                    message: `Genre id ${id} not updated successfully!`
+                    message: `Order id ${id} not updated successfully!`
                 })
         } catch (err) {
             res.status(500).json(err);
@@ -51,16 +51,16 @@ class GenreController {
         try {
             const id = +req.params.id;
 
-            let result = await genre.destroy({
+            let result = await order.destroy({
                 where: { id }
             });
-            
+
             result === 1 ?
                 res.status(200).json({
-                    message: `Genre id ${id} deleted successfully!`
+                    message: `Order id ${id} deleted successfully!`
                 }) :
                 res.status(404).json({
-                    message: `Genre id ${id} not deleted successfully!`
+                    message: `Order id ${id} not deleted successfully!`
                 })
         } catch (err) {
             res.status(500).json(err)
@@ -69,4 +69,4 @@ class GenreController {
 
 }
 
-module.exports = GenreController;
+module.exports = OrderController;
