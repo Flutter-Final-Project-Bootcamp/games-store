@@ -1,4 +1,4 @@
-const { transaction, order, game, library } = require('../models')
+const { cart, transaction, order, game, library, sequelize } = require('../models')
 
 class TransactionController {
     static async getAll(req, res) {
@@ -18,8 +18,7 @@ class TransactionController {
 
     static async add(req, res) {
         try {
-            const { payment, status, games } = req.body;
-            const userId = +req.userData.id
+            const { payment, status, games, userId } = req.body;
 
             let total_price = 0
             for (const gameId of games) {
@@ -42,8 +41,7 @@ class TransactionController {
     static async update(req, res) {
         try {
             const id = +req.params.id;
-            const { payment, status, games } = req.body;
-            const userId = +req.userData.id
+            const { payment, status, games, userId } = req.body;
 
             let total_price = 0
             await order.destroy({ where: { transactionId: id } });
@@ -91,6 +89,52 @@ class TransactionController {
         }
     }
 
+
+    static async getByUser(req, res) {
+        try {
+            const userId = +req.userData.id
+
+            let result = await transaction.findAll({
+                where: { userId },
+                include: { all: true }
+            })
+
+            res.status(200).json(result)
+        } catch (err) {
+            res.status(500).json(err)
+        }
+    }
+
+    static async addByUser(req, res) {
+        try {
+            const { payment, status } = req.body;
+            const userId = +req.userData.id
+            const userCart = await cart.findAll({
+                where: { userId },
+                include: { all: true }
+            })
+
+            let total_price = await cart.findAll({
+                where: { userId },
+                attributes: [[sequelize.fn('sum', sequelize.col('price')), 'total_price']],
+                include: {
+                    model: game,
+                    attributes: [],
+                },
+                raw: true,
+            }).then(result => +result[0].total_price)
+
+            let result = await transaction.create({ total_price, payment, status, userId });
+            for (const cart of userCart) {
+                await order.create({ price: cart.game.price, transactionId: result.id, gameId: cart.gameId })
+                await library.create({ userId, gameId: cart.gameId });
+            }
+
+            res.status(201).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
 }
 
 module.exports = TransactionController;

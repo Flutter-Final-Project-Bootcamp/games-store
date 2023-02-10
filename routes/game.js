@@ -1,12 +1,12 @@
 const gameRoute = require('express').Router();
 const { GameController } = require('../controllers/');
-const { auth } = require('../middlewares/auth')
+const { admin } = require('../middlewares/auth')
 const upload = require('../middlewares/multer')
 
 gameRoute.get('/', GameController.getAllGames);
-gameRoute.post('/', auth, upload('game').single('image'), GameController.add);
-gameRoute.put('/:id', auth, upload('game').single('image'), GameController.update);
-gameRoute.delete('/:id', auth, GameController.delete);
+gameRoute.post('/', admin, upload('game').single('image'), GameController.add);
+gameRoute.put('/:id', admin, upload('game').single('image'), GameController.update);
+gameRoute.delete('/:id', admin, GameController.delete);
 
 //Game with genres
 gameRoute.get('/game/:id/genres', GameController.getGameGenres);

@@ -4,7 +4,7 @@ class GenreController {
     static async getAllGenres(req, res) {
         try {
             let result = await genre.findAll({
-                order:[
+                order: [
                     ['id', 'asc']
                 ]
             });
@@ -54,7 +54,7 @@ class GenreController {
             let result = await genre.destroy({
                 where: { id }
             });
-            
+
             result === 1 ?
                 res.status(200).json({
                     message: `Genre id ${id} deleted successfully!`
@@ -67,6 +67,17 @@ class GenreController {
         }
     }
 
+    static async getGenreById(req, res) {
+        try {
+            const id = +req.params.id
+
+            let result = await genre.findByPk(id, { include: { all: true } })
+
+            res.status(200).json(result)
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
 }
 
 module.exports = GenreController;

@@ -7,18 +7,9 @@ const fs = require('fs')
 class UserController {
     static async getAll(req, res) {
         try {
-            const id = +req.userData.id
+            let users = await user.findAll()
 
-            if (id === 1) {
-                let users = await user.findAll()
-
-                res.status(200).json(users)
-            } else {
-                res.status(403).json({
-                    message: `User id ${id} does not have access for this request!`
-                })
-            }
-
+            res.status(200).json(users)
         } catch (error) {
             res.status(500).json(error)
         }
@@ -67,39 +58,32 @@ class UserController {
         try {
             const id = +req.params.id
             const { username, email, password, age } = req.body
-            const userId = +req.userData.id
 
-            if (userId === 1) {
-                let result = [0]
-                if (req.file) {
-                    let oldImage = await user.findByPk(id)
-                    let file = './uploads/' + oldImage.image
+            let result = [0]
+            if (req.file) {
+                let oldImage = await user.findByPk(id)
+                let file = './uploads/' + oldImage.image
 
-                    result = await user.update({ username, email, password, image: req.file.filename, age }, { where: { id }, individualHooks: true })
-                    fs.unlink(file, (err) => {
-                        if (err) {
-                            if (err.code === 'ENOENT') {
-                                return;
-                            }
-                            throw err;
+                result = await user.update({ username, email, password, image: req.file.filename, age }, { where: { id }, individualHooks: true })
+                fs.unlink(file, (err) => {
+                    if (err) {
+                        if (err.code === 'ENOENT') {
+                            return;
                         }
-                    })
-                } else {
-                    result = await user.update({ username, email, password, age }, { where: { id }, individualHooks: true })
-                }
-
-                result[0] === 1 ?
-                    res.status(200).json({
-                        message: `User id ${id} updated successfully!`
-                    }) :
-                    res.status(404).json({
-                        message: `User id ${id} not updated successfully!`
-                    })
-            } else {
-                res.status(403).json({
-                    message: `User id ${id} does not have access for this request!`
+                        throw err;
+                    }
                 })
+            } else {
+                result = await user.update({ username, email, password, age }, { where: { id }, individualHooks: true })
             }
+
+            result[0] === 1 ?
+                res.status(200).json({
+                    message: `User id ${id} updated successfully!`
+                }) :
+                res.status(404).json({
+                    message: `User id ${id} not updated successfully!`
+                })
         } catch (error) {
             res.status(500).json(error)
         }
@@ -108,23 +92,16 @@ class UserController {
     static async delete(req, res) {
         try {
             const id = +req.params.id
-            const userId = +req.userData.id
 
-            if (userId === 1) {
-                let result = await user.destroy({ where: { id } })
+            let result = await user.destroy({ where: { id } })
 
-                result === 1 ?
-                    res.status(200).json({
-                        message: `User id ${id} deleted successfully!`
-                    }) :
-                    res.status(404).json({
-                        message: `User id ${id} not deleted successfully!`
-                    })
-            } else {
-                res.status(403).json({
-                    message: `User id ${id} does not have access for this request!`
+            result === 1 ?
+                res.status(200).json({
+                    message: `User id ${id} deleted successfully!`
+                }) :
+                res.status(404).json({
+                    message: `User id ${id} not deleted successfully!`
                 })
-            }
         } catch (error) {
             res.status(500).json(error)
         }
@@ -133,17 +110,10 @@ class UserController {
     static async getById(req, res) {
         try {
             const id = +req.params.id
-            const userId = +req.userData.id
 
-            if (userId === 1) {
-                let result = await user.findByPk(id)
+            let result = await user.findByPk(id)
 
-                res.status(200).json(result)
-            } else {
-                res.status(403).json({
-                    message: `User id ${id} does not have access for this request!`
-                })
-            }
+            res.status(200).json(result)
         } catch (error) {
             res.status(500).json(error)
         }

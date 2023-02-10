@@ -67,11 +67,11 @@ class LibraryController {
     }
 
 
-    static async getByIdUser(req, res) {
+    static async getByUser(req, res) {
         try {
-            const id = +req.userData.id
+            const userId = +req.userData.id
 
-            let result = await library.findAll({ where: id, include: { all: true } })
+            let result = await library.findAll({ where: { userId }, include: { all: true } })
 
             res.status(200).json(result)
         } catch (error) {

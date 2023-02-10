@@ -42,7 +42,9 @@ module.exports = (sequelize, DataTypes) => {
           message: "Password must not be empty!"
         }
       }
-    }
+    },
+    image: DataTypes.STRING,
+    age: DataTypes.INTEGER
   }, {
     hooks: {
       beforeCreate: function (user, options) {

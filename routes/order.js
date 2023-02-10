@@ -1,10 +1,10 @@
 const orderRoute = require('express').Router();
 const { OrderController } = require('../controllers/');
-const { auth } = require('../middlewares/auth')
+const { admin } = require('../middlewares/auth')
 
-orderRoute.get('/', OrderController.getAll);
-orderRoute.post('/', auth, OrderController.add);
-orderRoute.put('/:id', auth, OrderController.update);
-orderRoute.delete('/:id', auth, OrderController.delete);
+orderRoute.get('/', admin, OrderController.getAll);
+orderRoute.post('/', admin, OrderController.add);
+orderRoute.put('/:id', admin, OrderController.update);
+orderRoute.delete('/:id', admin, OrderController.delete);
 
 module.exports = orderRoute;

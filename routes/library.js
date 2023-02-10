@@ -1,12 +1,12 @@
 const libraryRoute = require('express').Router();
 const { LibraryController } = require('../controllers/');
-const { auth } = require('../middlewares/auth')
+const { auth, admin } = require('../middlewares/auth')
 
-libraryRoute.get('/', LibraryController.getAll);
-libraryRoute.post('/', auth, LibraryController.add);
-libraryRoute.put('/:id', auth, LibraryController.update);
-libraryRoute.delete('/:id', auth, LibraryController.delete);
+libraryRoute.get('/', admin, LibraryController.getAll);
+libraryRoute.post('/', admin, LibraryController.add);
+libraryRoute.put('/:id', admin, LibraryController.update);
+libraryRoute.delete('/:id', admin, LibraryController.delete);
 
-libraryRoute.get('/user', auth, LibraryController.getByIdUser)
+libraryRoute.get('/library', auth, LibraryController.getByUser)
 
 module.exports = libraryRoute;
