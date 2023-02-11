@@ -1,4 +1,4 @@
-const { cart } = require('../models')
+const { cart, game } = require('../models')
 
 class CartController {
     static async getAll(req, res) {
@@ -73,7 +73,10 @@ class CartController {
 
             let result = await cart.findAll({
                 where: { userId },
-                include: { all: true }
+                include: {
+                    model: game,
+                    include: { all: true }
+                }
             })
 
             res.status(200).json(result)

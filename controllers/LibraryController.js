@@ -1,4 +1,4 @@
-const { library } = require('../models')
+const { library, game } = require('../models')
 
 class LibraryController {
     static async getAll(req, res) {
@@ -71,7 +71,13 @@ class LibraryController {
         try {
             const userId = +req.userData.id
 
-            let result = await library.findAll({ where: { userId }, include: { all: true } })
+            let result = await library.findAll({
+                where: { userId },
+                include: {
+                    model: game,
+                    include: { all: true }
+                }
+            })
 
             res.status(200).json(result)
         } catch (error) {

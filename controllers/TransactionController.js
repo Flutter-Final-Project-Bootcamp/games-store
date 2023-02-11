@@ -96,7 +96,10 @@ class TransactionController {
 
             let result = await transaction.findAll({
                 where: { userId },
-                include: { all: true }
+                include: {
+                    model: order,
+                    include: { model: game }
+                }
             })
 
             res.status(200).json(result)
