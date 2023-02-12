@@ -126,12 +126,12 @@ class CartController {
                 where: { userId }
             });
 
-            result === 1 ?
+            result !== 0 ?
                 res.status(200).json({
-                    message: `Cart from user id ${id} cart deleted successfully!`
+                    message: `Cart from user id ${userId} cart deleted successfully!`
                 }) :
                 res.status(404).json({
-                    message: `Cart from user id ${id} not deleted successfully!`
+                    message: `Cart from user id ${userId} not deleted successfully!`
                 })
         } catch (err) {
             res.status(500).json(err)
