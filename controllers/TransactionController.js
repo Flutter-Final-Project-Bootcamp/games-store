@@ -132,6 +132,7 @@ class TransactionController {
                 await order.create({ price: cart.game.price, transactionId: result.id, gameId: cart.gameId })
                 await library.create({ userId, gameId: cart.gameId });
             }
+            await cart.destroy({ where: { userId } });
 
             res.status(201).json(result);
         } catch (err) {
